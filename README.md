@@ -1,7 +1,8 @@
 # fuck-cors
 
 A Clojure library designed to fuck CORS and open your API completely.
-So all AJAX Call should alway works, be it with cookies or not.
+So all cross domain HTTP calls should works.
+It should works with cookies too.
 
 In which case should you use this library:
 
