@@ -31,6 +31,13 @@ Then
 
 And use `wrap-open-cors` as middleware.
 
+## Limitations
+
+There is a bug with Safari.
+The only way to make it works is by using a _very_ dirty trick:
+
+<http://anantgarg.com/2010/02/18/cross-domain-cookies-in-safari/>
+
 ## License
 
 Copyright © 2014 Yann Esposito
