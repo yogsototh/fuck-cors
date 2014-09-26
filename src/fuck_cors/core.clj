@@ -23,7 +23,7 @@
                    referer
                    host)
          headers {"Access-Control-Allow-Origin" origins
-                  "Access-Control-Allow-Headers" "Origin, X-Requested-With, Content-Type, Accept, Cache-Control"
+                  "Access-Control-Allow-Headers" "Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Accept-Language, Accept-Encoding"
                   "Access-Control-Allow-Methods" "HEAD, GET, POST, PUT, DELETE, OPTIONS, TRACE"
                   "Access-Control-Allow-Credentials" "true"
                   "Access-Control-Expose-Headers" "content-length"
