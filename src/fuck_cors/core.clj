@@ -1,5 +1,10 @@
 (ns fuck-cors.core)
 
+(defn preflight?
+  "Returns true if the request is a preflight request"
+  [request]
+  (= (request :request-method) :options))
+
 (defn- host-from-req
   [request]
   (str (-> request :scheme name)
@@ -28,5 +33,11 @@
                   "Access-Control-Allow-Credentials" "true"
                   "Access-Control-Expose-Headers" "content-length"
                   "Vary" "Accept-Encoding, Origin, Accept-Language"}]
-     (-> (handler request)
-         (update-in [:headers] #(into % headers))))))
+                
+     (if preflight? req
+           (into req {:status 200
+                      :headers (update-in req [:headers] #(into % headers))
+                      :body "preflight complete"})
+                    
+           (-> (handler request)
+               (update-in [:headers] #(into % headers)))))))
