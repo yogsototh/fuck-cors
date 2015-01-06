@@ -1,4 +1,4 @@
-(defproject fuck-cors "0.1.2"
+(defproject fuck-cors "0.1.3"
   :description "Fuck CORS and open all to everyone"
   :url "http://github.com/yogsototh/fuck-cors"
   :license {:name "MIT"
