@@ -6,9 +6,9 @@
        "://"
        (get-in request [:headers "host"])))
 
-(defn- get-referer
-  [request]
-  (let [rawref (get-in request [:headers "referer"])]
+(defn- get-header
+  [request header-name]
+  (let [rawref (get-in request [:headers header-name])]
     (if rawref
         (clojure.string/replace rawref #"(http://[^/]*).*$" "$1")
         nil)))
@@ -16,17 +16,20 @@
 (defn wrap-open-cors
   "Open your Origin Policy to Everybody, no limit"
   [handler]
- (fn [request]
-   (let [referer (get-referer request)
-         host (host-from-req request)
-         origins (if referer
-                   referer
-                   host)
-         headers {"Access-Control-Allow-Origin" origins
-                  "Access-Control-Allow-Headers" "Origin, X-Served-By, X-Requested-With, Content-Type, Accept, Cache-Control, Accept-Language, Accept-Encoding, Authorization"
-                  "Access-Control-Allow-Methods" "HEAD, GET, POST, PUT, DELETE, OPTIONS, TRACE"
-                  "Access-Control-Allow-Credentials" "true"
-                  "Access-Control-Expose-Headers" "content-length"
-                  "Vary" "Accept-Encoding, Origin, Accept-Language"}]
-     (-> (handler request)
-         (update-in [:headers] #(into % headers))))))
+  (fn [request]
+    (let [origin (get-header "origin")
+          referer (get-header "referer")
+          host (host-from-req request)
+          origins (if origin
+                    origin
+                    (if referer
+                      referer
+                      host))
+          headers {"Access-Control-Allow-Origin" origins
+                   "Access-Control-Allow-Headers" "Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Accept-Language, Accept-Encoding, Authorization"
+                   "Access-Control-Allow-Methods" "HEAD, GET, POST, PUT, DELETE, OPTIONS, TRACE"
+                   "Access-Control-Allow-Credentials" "true"
+                   "Access-Control-Expose-Headers" "content-length"
+                   "Vary" "Accept-Encoding, Origin, Accept-Language"}]
+      (-> (handler request)
+          (update-in [:headers] #(into % headers))))))
