@@ -17,8 +17,8 @@
   "Open your Origin Policy to Everybody, no limit"
   [handler]
   (fn [request]
-    (let [origin (get-header "origin")
-          referer (get-header "referer")
+    (let [origin (get-header request "origin")
+          referer (get-header request "referer")
           host (host-from-req request)
           origins (if origin
                     origin
