@@ -33,3 +33,14 @@
                    "Vary" "Accept-Encoding, Origin, Accept-Language"}]
       (-> (handler request)
           (update-in [:headers] #(into % headers))))))
+
+(defn wrap-preflight
+  "Add a preflight answer. Will break any OPTIONS handler, beware.
+  To put AFTER wrap-open-cors"
+  [handler]
+  (fn [request]
+    (if (= (request :request-method) :options)
+      (into request {:status 200 :body "preflight complete"})
+      (handler request))))
+
+
