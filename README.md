@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/yogsototh/fuck-cors.svg?branch=master)](https://travis-ci.org/yogsototh/fuck-cors)
+
 # fuck-cors
 
 A Clojure library designed to fuck CORS and open your API completely.
@@ -18,9 +20,7 @@ In which case should you use this library:
 
 Add
 
-~~~
-[fuck-cors 0.1.0]
-~~~
+[![Clojars Project](https://img.shields.io/clojars/v/fuck-cors.svg)](https://clojars.org/fuck-cors)
 
 to your `project.clj`.
 
